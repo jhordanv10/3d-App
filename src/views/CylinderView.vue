@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text pt-4">Cylinder</h1>
+    <h1 class="text pt-4">Cilindro</h1>
     <Cylinder3d />
   </div>
 </template>

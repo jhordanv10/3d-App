@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text pt-4">Cube</h1>
+    <h1 class="text pt-4">Cubo</h1>
     <Cube3d />
   </div>
 </template>
