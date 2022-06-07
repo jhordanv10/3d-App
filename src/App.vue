@@ -1,32 +1,58 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <!-- <v-icon >mdi-home</v-icon> -->
+    <v-navigation-drawer
+      app
+      class="pt-4"
+      color="grey lighten-3"
+      mini-variant
+    >
+      <v-avatar
+        cursor: pointer
+        size="40"
+        v-for="{id , icon, path} in routes"
+        :key="id"
+        class="d-block text-center mx-auto mb-9 avatar"
+        @click="selectRute(path)"
+        
+      >
+      <Icon :icon="icon" class="icon grey--text"/>
+      </v-avatar>
+    </v-navigation-drawer>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { Icon } from '@iconify/vue2';
+export default {
+  name: "App",
+  components: {
+		Icon,
+	},
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  data() {
+    return {
+      routes: [
+        { id:1, name:"home", icon:"mdi-home", path:"/"},
+        { id:2, name:"sphere", icon:"mdi-sphere", path:"/sphere"},
+        { id:3, name:"cube", icon:"mdi-cube", path:"/cube"},
+        { id:4, name:"cone", icon:"mdi-cone", path:"/cone"},
+        { id:5, name:"cylinder", icon:"mdi-cylinder", path:"/cylinder"},
+      ]
+    };
+  },
+  methods: {
+    selectRute(r) {
+      this.$router.push(r).catch(()=>{});;
+    },
+  },
+};
+</script>
+<style lang="scss" scoped>
+  .avatar {
+    cursor: pointer;
   }
-}
 </style>
