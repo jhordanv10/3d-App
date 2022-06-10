@@ -2,9 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SphereView from '../views/SphereView.vue'
-import CubeView from '../views/CubeView.vue'
+import CubesView from '../views/CubesView.vue'
 import ConeView from '../views/ConeView.vue'
 import CylinderView from '../views/CylinderView.vue'
+import TorusView from '../views/TorusView.vue'
+import ModelAstronautView from '../views/ModelAstronautView.vue'
+
 
 Vue.use(VueRouter)
 
@@ -20,9 +23,9 @@ const routes = [
     component: SphereView
   },
   {
-    path: '/cube',
-    name: 'cube',
-    component: CubeView
+    path: '/cubes',
+    name: 'cubes',
+    component: CubesView
   },
   {
     path: '/cone',
@@ -33,6 +36,16 @@ const routes = [
     path: '/cylinder',
     name: 'cylinder',
     component: CylinderView
+  },
+  {
+    path: '/torus',
+    name: 'torus',
+    component: TorusView
+  },
+  {
+    path: '/modelastronaut',
+    name: 'modelastronaut',
+    component: ModelAstronautView
   },
 ]
 

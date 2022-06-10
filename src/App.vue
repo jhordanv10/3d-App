@@ -38,9 +38,11 @@ export default {
       routes: [
         { id:1, name:"home", icon:"mdi-home", path:"/"},
         { id:2, name:"sphere", icon:"mdi-sphere", path:"/sphere"},
-        { id:3, name:"cube", icon:"mdi-cube", path:"/cube"},
+        { id:3, name:"cubes", icon:"mdi-cube", path:"/cubes"},
         { id:4, name:"cone", icon:"mdi-cone", path:"/cone"},
         { id:5, name:"cylinder", icon:"mdi-cylinder", path:"/cylinder"},
+        { id:6, name:"torus", icon:"mdi-record-circle", path:"/torus"},
+        { id:7, name:"modelastronaut", icon:"mdi-rocket", path:"/modelastronaut"},
       ]
     };
   },
