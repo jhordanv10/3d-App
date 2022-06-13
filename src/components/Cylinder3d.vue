@@ -60,6 +60,8 @@ export default {
 
   methods: {
         animate() {
+          this.cylinder.rotation.x += 0.01
+          this.cylinder.rotation.y += 0.01
           this.renderer.render(this.scene, this.camera)
           requestAnimationFrame(this.animate)
           this.controls.update()

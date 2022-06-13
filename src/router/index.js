@@ -6,6 +6,7 @@ import CubesView from '../views/CubesView.vue'
 import ConeView from '../views/ConeView.vue'
 import CylinderView from '../views/CylinderView.vue'
 import TorusView from '../views/TorusView.vue'
+import PlaneView from '../views/PlaneView.vue'
 import ModelAstronautView from '../views/ModelAstronautView.vue'
 
 
@@ -41,6 +42,11 @@ const routes = [
     path: '/torus',
     name: 'torus',
     component: TorusView
+  },
+  {
+    path: '/plane',
+    name: 'plane',
+    component: PlaneView
   },
   {
     path: '/modelastronaut',

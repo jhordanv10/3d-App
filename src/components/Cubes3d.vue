@@ -1,139 +1,190 @@
 <template>
-  <div ref="canvas" class="contenedor3D" />
+  <div
+    @click="onClick"
+    @mousemove="onPointer"
+    ref="canvas"
+    class="contenedor3D"
+  >
+  </div>
 </template>
 
 <script>
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { gsap } from "gsap";
 
 export default {
   data() {
+    //Global Var
+    let meshCurrent = null;
+    let meshCurrentClick = null;
+
     //Scene
-    const scene = new THREE.Scene();
+    let scene = new THREE.Scene();
+    // scene.background = new THREE.Color( 0xf0f0f0 )
 
     //Camera
-    const camera = new THREE.PerspectiveCamera(
+    let camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
 
+    //Light
+    const DirectionalLight = new THREE.DirectionalLight(0xffffff, 1);
+
     //Renderer
-    const renderer = new THREE.WebGLRenderer();
+    let renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    //Geometry and materials
+    //Cube 1
     const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial();
+    const cube = new THREE.Mesh(geometry, material);
+    cube.name = "Cube 1";
 
-    //Cube 1
-    const cube1 = new THREE.Mesh(geometry, material);
+    //Cube 2
+    const geometry1 = new THREE.BoxBufferGeometry(1, 1, 1);
+    const material1 = new THREE.MeshBasicMaterial();
+    const cube2 = new THREE.Mesh(geometry1, material1);
+    cube2.name = "Cube 2";
 
-    //Cube2
-    const cube2 = new THREE.Mesh(geometry, material);
-
-    //Cube3
-    const cube3 = new THREE.Mesh(geometry, material);
-
-    //Cube4
-    const cube4 = new THREE.Mesh(geometry, material);
-
-    //Cube5
-    const cube5 = new THREE.Mesh(geometry, material);
-
-    //Cube6
-    const cube6 = new THREE.Mesh(geometry, material);
+    //Cube 3
+    const geometry2 = new THREE.BoxBufferGeometry(1, 1, 1);
+    const material2 = new THREE.MeshBasicMaterial();
+    const cube3 = new THREE.Mesh(geometry2, material2);
+    cube3.name = "Cube 3";
+    
 
     //Raycaster
     const raycaster = new THREE.Raycaster();
-    const collitions = [cube1, cube2, cube3, cube4, cube5, cube6];
-    const mouseCoors = new THREE.Vector2();
+    const pointer = new THREE.Vector2(-100, -100);
 
     return {
       scene: scene,
       camera: camera,
       renderer: renderer,
-      cube1: cube1,
+      cube: cube,
       cube2: cube2,
       cube3: cube3,
-      cube4: cube4,
-      cube5: cube5,
-      cube6: cube6,
       controls: [],
-      mouseCoors: mouseCoors,
+      DirectionalLight: DirectionalLight,
+      pointer: pointer,
       raycaster: raycaster,
-      collitions: collitions,
+      meshCurrent: meshCurrent,
+      meshCurrentClick: meshCurrentClick,
+      gsap: gsap,
     };
   },
 
   created() {
     this.scene.add(this.camera);
 
-    //Cube 1
-    this.scene.add(this.cube1);
+    //Cube
+    this.scene.add(this.cube);
 
     //Cube 2
-    this.cube2.position.set(1, 2.5, -3);
+    this.cube2.position.set(-2, 0, 0);
+
     this.scene.add(this.cube2);
 
     //Cube 3
-    this.cube3.position.set(-0.2, -3, -1);
+    this.cube3.position.set(2, 0, 0);
     this.scene.add(this.cube3);
 
-    //Cube 4
-    this.cube4.position.set(3, -2, -4);
-    this.scene.add(this.cube4);
+    this.camera.position.z = -4;
 
-    //Cube 5
-    this.cube5.position.set(-1.2, 3, -2);
-    this.scene.add(this.cube5);
-
-    //Cube 6
-    this.cube6.position.set(-2, -2, -3);
-    this.scene.add(this.cube6);
-
-    this.camera.position.z = 4;
+    //Light
+    this.DirectionalLight.position.set(1, 1, 1).normalize();
+    this.scene.add(this.DirectionalLight);
 
     //Controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
+
+    this.onPointer();
   },
 
   mounted() {
     this.$refs.canvas.appendChild(this.renderer.domElement);
     this.animate();
-
-    window.removeEventListener("resize", this.resize)
-    window.addEventListener("onMouseMove", (e) => this.onMouseMove(e));
   },
-  unmounted(){
-    },
-
   methods: {
     resize() {
-      this.camera.aspect = window.innerWidth / window.innerHeight
-      this.camera.updateProjectionMatrix()
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
     },
 
-    onMouseMove(event) {
+    //Objects for collitions
+    objectForCollitions() {
+      return [this.cube, this.cube2, this.cube3];
+    },
 
-      this.mouseCoors.x = (event.clientX / window.innerWidth) * 2 - 1;
-      this.mouseCoors.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    onClick() {
+      try {
+        switch (this.meshCurrentClick.name) {
+          case "Cube 1":
+            return console.log("Cube 1 - click");
+          case "Cube 2":
+            return console.log("Cube 2 - click");
+          case "Cube 3":
+            return console.log("Cube 3 - click");
+          default:
+            return null;
+        }
+      } catch (error) {}
+    },
+
+    onPointer(event) {
+      try {
+        this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        //Raycaster Setup
+        this.raycaster.setFromCamera(this.pointer, this.camera);
+
+        const collitions = this.objectForCollitions();
+
+        const intersects = this.raycaster.intersectObjects(collitions, true);
+
+        //Mouse onleave
+        if (this.meshCurrent) {
+          this.gsap.to(this.meshCurrent.material.color, {
+            r: 1,
+            g: 1,
+            b: 1,
+            overwrite: true,
+            duration: 0.3,
+          });
+        }
+
+        //Mouse hover and Click
+        if (intersects.length) {
+          this.meshCurrent = null;
+          this.meshCurrent = intersects[0].object;
+          this.meshCurrentClick = intersects[0].object;
+
+          this.gsap.to(this.meshCurrent.material.color, {
+            r: 1,
+            g: 0,
+            b: 0,
+            overwrite: true,
+            duration: 0.3,
+          });
+        } else if (this.meshCurrent) {
+          this.gsap.to(this.meshCurrent.material.color, {
+            r: 1,
+            g: 1,
+            b: 1,
+            overwrite: true,
+            duration: 0.5,
+          });
+        }
+      } catch (error) {}
     },
 
     animate() {
-      //Raycaster Setup
-      this.raycaster.setFromCamera(this.mouseCoors, this.camera);
-      
-      const raycasterCollitions = this.raycaster.intersectObjects(this.collitions);
-      for(const original of this.collitions) {
-          original.material.color.set('red')
-      }
-
-      for (const collition of raycasterCollitions ) {
-        collition.object.material.color.set('green');
-      }
 
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
