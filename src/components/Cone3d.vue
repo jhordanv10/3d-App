@@ -77,9 +77,12 @@ export default {
     this.scene.add(this.camera);
     this.scene.add(this.cone);
     this.camera.position.z = 4
+
+    //Ligth
     this.scene.add(this.AmbientalLigth);
     this.DirectionalLigth.position.set(5,5,5)
     this.scene.add(this.DirectionalLigth);
+    
     this.scene.environment = this.envMap
     this.scene.background  = this.envMap
     //Controls

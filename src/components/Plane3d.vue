@@ -2,16 +2,16 @@
   <div>
     <div class="buttons d-flex">
       <v-btn @click="onClick('sphere')" dark class="button" color="#6f3f3f"
-        >Sphere</v-btn
+        >Esfera</v-btn
       >
       <v-btn @click="onClick('cube')" dark class="button" color="#f94c66"
-        >Cube</v-btn
+        >Cubo</v-btn
       >
       <v-btn @click="onClick('cone')" dark class="button" color="#445477"
-        >Cone</v-btn
+        >Cono</v-btn
       >
       <v-btn @click="onClick('cylinder')" dark class="button" color="#ffc54d"
-        >Cylinder</v-btn
+        >Cilindro</v-btn
       >
       <v-btn @click="onClick('normal')" dark class="button" color="#7f9cdc"
         >Normal</v-btn
@@ -45,7 +45,7 @@ export default {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     //Plane
-    const geometry = new THREE.PlaneGeometry(4, 4, 6, 6);
+    const geometry = new THREE.PlaneGeometry(4, 4, 10,10);
     const material = new THREE.MeshBasicMaterial({
       color: 0xc6dce4,
       side: THREE.DoubleSide,
@@ -121,7 +121,7 @@ export default {
           y: 0.67,
           z: -1.02,
         },
-        zoom: 1.45,
+        zoom: 1.2,
       },
       cylinder: {
         camera: {
@@ -129,7 +129,7 @@ export default {
           y: 0.67,
           z: -1.02,
         },
-        zoom: 1.45,
+        zoom: 1.2,
       },
       normal: {
         camera: {
