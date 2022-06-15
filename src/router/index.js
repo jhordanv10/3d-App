@@ -7,7 +7,7 @@ import ConeView from '../views/ConeView.vue'
 import CylinderView from '../views/CylinderView.vue'
 import TorusView from '../views/TorusView.vue'
 import PlaneView from '../views/PlaneView.vue'
-import ModelAstronautView from '../views/ModelAstronautView.vue'
+import ModelView from '../views/ModelView.vue'
 
 
 Vue.use(VueRouter)
@@ -49,9 +49,9 @@ const routes = [
     component: PlaneView
   },
   {
-    path: '/modelastronaut',
-    name: 'modelastronaut',
-    component: ModelAstronautView
+    path: '/model',
+    name: 'model',
+    component: ModelView
   },
 ]
 

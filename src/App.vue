@@ -43,7 +43,7 @@ export default {
         { id:5, name:"cylinder", icon:"mdi-cylinder", path:"/cylinder"},
         { id:6, name:"torus", icon:"mdi-record-circle", path:"/torus"},
         { id:7, name:"plane", icon:"mdi-earth-box", path:"/plane"},
-        { id:8, name:"modelastronaut", icon:"mdi-rocket", path:"/modelastronaut"},
+        { id:8, name:"model", icon:"mdi-rocket", path:"/model"},
       ]
     };
   },
